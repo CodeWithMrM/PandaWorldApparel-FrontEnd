@@ -211,7 +211,7 @@ export function ProductDetailsPage() {
                 <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 {text}
               </div>
-            ))}}
+            ))}
           </div>
 
           <Tabs defaultValue="description" className="mt-4">
