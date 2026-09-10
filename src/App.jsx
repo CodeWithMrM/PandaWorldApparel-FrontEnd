@@ -4,6 +4,7 @@ import { useAuth } from '@clerk/clerk-react';
 import { Toaster } from 'sonner';
 
 import { RootLayout } from '@/components/layout/RootLayout';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { ProtectedRoute } from '@/components/common/ProtectedRoute';
 import { registerAuthTokenGetter } from '@/lib/api';
 import { useCartStore } from '@/store/cartStore';
@@ -53,22 +54,23 @@ function AuthBootstrap() {
 
 export default function App() {
   return (
-    <>
-      <AuthBootstrap />
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          style: {
-            background: '#111111',
-            color: '#FFFFFF',
-            border: 'none',
-            borderRadius: '12px',
-            fontSize: '13px',
-          },
-        }}
-      />
-      <Routes>
-        <Route element={<RootLayout />}>
+    <ErrorBoundary>
+      <>
+        <AuthBootstrap />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: {
+              background: '#111111',
+              color: '#FFFFFF',
+              border: 'none',
+              borderRadius: '12px',
+              fontSize: '13px',
+            },
+          }}
+        />
+        <Routes>
+          <Route element={<RootLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
@@ -113,6 +115,7 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-    </>
+      </>
+    </ErrorBoundary>
   );
 }
