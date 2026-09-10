@@ -6,18 +6,18 @@ export function CategoryShowcase({ categories = [] }) {
   if (categories.length === 0) return null;
 
   return (
-    <section className="container-px mx-auto py-16">
-      <div className="mb-8 flex items-end justify-between">
+    <section className="container-px mx-auto py-8 sm:py-12 md:py-16">
+      <div className="mb-6 sm:mb-8 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
         <div>
-          <span className="eyebrow">Shop by Category</span>
-          <h2 className="mt-2 font-display text-3xl font-bold text-ink">Featured Categories</h2>
+          <span className="eyebrow text-[9px] sm:text-[10px] md:text-[11px]">Shop by Category</span>
+          <h2 className="mt-2 font-display text-2xl sm:text-3xl font-bold text-ink">Featured Categories</h2>
         </div>
-        <Link to="/shop" className="hidden text-sm font-semibold text-ink underline underline-offset-4 sm:block">
+        <Link to="/shop" className="text-xs sm:text-sm font-semibold text-ink underline underline-offset-4">
           View All
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {categories.slice(0, 4).map((cat) => (
           <Link
             key={cat.id}

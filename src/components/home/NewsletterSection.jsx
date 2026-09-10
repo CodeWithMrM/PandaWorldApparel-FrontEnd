@@ -17,24 +17,24 @@ export function NewsletterSection() {
 
   return (
     <section className="bg-surface-muted">
-      <div className="container-px mx-auto flex flex-col items-center gap-6 py-16 text-center">
-        <span className="eyebrow">Stay in the loop</span>
-        <h2 className="max-w-lg font-display text-3xl font-bold text-ink">
+      <div className="container-px mx-auto flex flex-col items-center gap-4 sm:gap-6 py-8 sm:py-12 md:py-16 text-center">
+        <span className="eyebrow text-[9px] sm:text-[10px] md:text-[11px]">Stay in the loop</span>
+        <h2 className="max-w-lg font-display text-2xl sm:text-3xl font-bold text-ink">
           Get 10% off your first order
         </h2>
-        <p className="max-w-md text-sm text-ink/55">
+        <p className="max-w-md text-xs sm:text-sm text-ink/55">
           Sign up for restock alerts, early access to drops, and subscriber-only discounts.
         </p>
-        <form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col gap-3 sm:flex-row">
+        <form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col gap-2 sm:gap-3 sm:flex-row">
           <input
             type="email"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
-            className="h-13 flex-1 rounded-sm border border-border bg-white px-4 text-sm text-ink placeholder:text-ink/35 focus:border-ink focus:outline-none"
+            className="h-10 sm:h-13 flex-1 rounded-sm border border-border bg-white px-3 sm:px-4 text-xs sm:text-sm text-ink placeholder:text-ink/35 focus:border-ink focus:outline-none"
           />
-          <Button type="submit" variant="solid" size="lg">
+          <Button type="submit" variant="solid" size="sm" className="sm:size-md">
             Subscribe
           </Button>
         </form>

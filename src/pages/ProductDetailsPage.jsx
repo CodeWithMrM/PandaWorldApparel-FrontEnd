@@ -123,7 +123,7 @@ export function ProductDetailsPage() {
   };
 
   return (
-    <div className="container-px mx-auto py-8">
+    <div className="container-px mx-auto py-6 sm:py-8">
       <Breadcrumbs
         items={[
           { label: 'Shop', to: '/shop' },
@@ -132,32 +132,32 @@ export function ProductDetailsPage() {
         ]}
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div className="mt-4 sm:mt-6 grid grid-cols-1 gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-2">
         <ProductGallery imageUrl={product.imageUrl} name={product.name} />
 
-        <div className="flex flex-col gap-5 lg:sticky lg:top-24 lg:self-start">
-          {onSale && <Badge variant="accent" className="w-fit">-{percentOff}% Off</Badge>}
+        <div className="flex flex-col gap-3 sm:gap-4 lg:gap-5 lg:sticky lg:top-24 lg:self-start">
+          {onSale && <Badge variant="accent" className="w-fit text-xs sm:text-sm">-{percentOff}% Off</Badge>}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-ink/40">
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-ink/40">
               {product.category?.name}
             </p>
-            <h1 className="mt-1 font-display text-3xl font-bold leading-tight text-ink">{product.name}</h1>
+            <h1 className="mt-1 font-display text-2xl sm:text-3xl font-bold leading-tight text-ink">{product.name}</h1>
           </div>
 
           <RatingStars rating={rating} reviewCount={reviewCount} size="md" />
           <PriceTag price={product.price} compareAtPrice={compareAtPrice} size="lg" />
 
-          <p className={cn('text-sm font-semibold', isSoldOut ? 'text-ink/50' : stock.variant === 'accent' ? 'text-accent' : 'text-success')}>
+          <p className={cn('text-xs sm:text-sm font-semibold', isSoldOut ? 'text-ink/50' : stock.variant === 'accent' ? 'text-accent' : 'text-success')}>
             {stock.label}
           </p>
 
           {requiresSizeChoice && (
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-wide text-ink/50">
+                <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-ink/50">
                   Size {size && <span className="text-ink">— {size}</span>}
                 </p>
-                <button className="text-xs font-medium text-ink underline underline-offset-4">
+                <button className="text-[10px] sm:text-xs font-medium text-ink underline underline-offset-4">
                   Size Guide
                 </button>
               </div>
@@ -166,51 +166,52 @@ export function ProductDetailsPage() {
           )}
 
           <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink/50">Quantity</p>
+            <p className="mb-2 text-[10px] sm:text-xs font-semibold uppercase tracking-wide text-ink/50">Quantity</p>
             <QuantitySelector value={quantity} onChange={setQuantity} max={Math.max(1, product.stock)} />
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col gap-2 sm:gap-3">
             <Button
-              size="lg"
+              size="sm"
               variant="default"
-              className="flex-1"
+              className="w-full sm:size-md"
               onClick={handleAdd}
               disabled={!canAddToCart}
             >
               {isSoldOut ? 'Sold Out' : 'Add to Bag'}
             </Button>
             <Button
-              size="lg"
+              size="sm"
               variant="solid"
-              className="flex-1"
+              className="w-full sm:size-md"
               onClick={handleBuyNow}
               disabled={!canAddToCart}
             >
               Buy Now
             </Button>
             <Button
-              size="icon"
+              size="sm"
               variant="default"
-              className="shrink-0"
+              className="w-full"
               onClick={() => toggleWishlist(product)}
               aria-label="Toggle wishlist"
             >
-              <Heart className={cn('h-4 w-4', isWishlisted && 'fill-accent text-accent')} />
+              <Heart className={cn('h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5', isWishlisted && 'fill-accent text-accent')} />
+              {isWishlisted ? 'Saved' : 'Save'}
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 border-t border-border pt-5 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:gap-3 border-t border-border pt-3 sm:pt-5 sm:grid-cols-3">
             {[
               [Truck, 'Free shipping over R899'],
               [RotateCcw, '30-day easy returns'],
               [ShieldCheck, 'Secure PayFast checkout'],
             ].map(([Icon, text]) => (
-              <div key={text} className="flex items-center gap-2 text-xs text-ink/55">
-                <Icon className="h-4 w-4 shrink-0" />
+              <div key={text} className="flex items-center gap-2 text-[10px] sm:text-xs text-ink/55">
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
                 {text}
               </div>
-            ))}
+            ))}}
           </div>
 
           <Tabs defaultValue="description" className="mt-4">

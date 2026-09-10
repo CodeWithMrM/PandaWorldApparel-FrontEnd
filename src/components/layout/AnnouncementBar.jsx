@@ -17,8 +17,8 @@ export function AnnouncementBar() {
 
   return (
     <div className="bg-ink text-white">
-      <div className="container-px mx-auto flex h-9 items-center justify-center overflow-hidden">
-        <p key={index} className="animate-fade-in text-center text-[12px] font-medium tracking-wide">
+      <div className="container-px mx-auto flex h-8 sm:h-9 items-center justify-center overflow-hidden">
+        <p key={index} className="animate-fade-in text-center text-[10px] sm:text-[11px] md:text-[12px] font-medium tracking-wide">
           {MESSAGES[index]}
         </p>
       </div>

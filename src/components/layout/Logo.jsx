@@ -12,7 +12,7 @@ export function Logo({ className }) {
     <Link
       to="/"
       className={cn(
-        'font-display text-[22px] font-extrabold tracking-tightest text-ink inline-flex items-baseline gap-[2px]',
+        'font-display text-base sm:text-lg md:text-xl lg:text-[22px] font-extrabold tracking-tightest text-ink inline-flex items-baseline gap-[2px] transition-all duration-300',
         className
       )}
       aria-label="PandaWorld Apparel — home"
@@ -20,7 +20,7 @@ export function Logo({ className }) {
       PANDA
       <span className="relative inline-block">
         W
-        <span className="absolute -top-[3px] right-[3px] h-[5px] w-[5px] rounded-full bg-accent" />
+        <span className="absolute -top-[2px] sm:-top-[2.5px] md:-top-[3px] right-[2px] sm:right-[2.5px] md:right-[3px] h-[3px] sm:h-[4px] md:h-[5px] w-[3px] sm:w-[4px] md:w-[5px] rounded-full bg-accent" />
       </span>
       ORLD
     </Link>

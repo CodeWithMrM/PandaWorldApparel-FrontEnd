@@ -33,28 +33,28 @@ export function FlashSaleBanner() {
 
   return (
     <section className="border-y border-border bg-ink">
-      <div className="container-px mx-auto flex flex-col items-center justify-between gap-6 py-10 sm:flex-row">
+      <div className="container-px mx-auto flex flex-col items-center justify-center gap-4 py-6 sm:justify-between sm:gap-6 sm:py-10 sm:flex-row">
         <div className="text-center sm:text-left">
-          <span className="text-[11px] font-semibold uppercase tracking-widest2 text-accent">
+          <span className="text-[9px] sm:text-[10px] md:text-[11px] font-semibold uppercase tracking-widest2 text-accent">
             Flash Sale
           </span>
-          <h2 className="mt-1 font-display text-3xl font-bold text-white">Up to 45% Off Today</h2>
+          <h2 className="mt-1 font-display text-2xl sm:text-3xl font-bold text-white">Up to 45% Off Today</h2>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {[
             ['H', h],
             ['M', m],
             ['S', s],
           ].map(([label, value]) => (
-            <div key={label} className="flex h-16 w-16 flex-col items-center justify-center rounded-sm border border-white/20">
-              <span className="font-display text-xl font-bold text-white tabular-nums">{value}</span>
-              <span className="text-[10px] uppercase text-white/50">{label}</span>
+            <div key={label} className="flex h-12 w-12 sm:h-16 sm:w-16 flex-col items-center justify-center rounded-sm border border-white/20">
+              <span className="font-display text-lg sm:text-xl font-bold text-white tabular-nums">{value}</span>
+              <span className="text-[8px] sm:text-[10px] uppercase text-white/50">{label}</span>
             </div>
           ))}
         </div>
 
-        <Button size="lg" className="border-white text-white hover:bg-white hover:text-ink" asChild>
+        <Button size="sm" className="border-white text-white hover:bg-white hover:text-ink" asChild>
           <Link to="/shop?sale=true">Shop the Sale</Link>
         </Button>
       </div>

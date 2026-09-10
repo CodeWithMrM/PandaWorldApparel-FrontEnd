@@ -87,36 +87,36 @@ export function CheckoutPage() {
   };
 
   return (
-    <div className="container-px mx-auto py-8">
-      <h1 className="mb-8 font-display text-3xl font-bold sm:text-4xl">Checkout</h1>
+    <div className="container-px mx-auto py-6 sm:py-8">
+      <h1 className="mb-6 sm:mb-8 font-display text-2xl sm:text-3xl font-bold">Checkout</h1>
 
-      <div className="mb-10 flex items-center gap-2 overflow-x-auto">
+      <div className="mb-6 sm:mb-10 flex items-center gap-1 sm:gap-2 overflow-x-auto">
         {STEPS.map((label, i) => (
-          <div key={label} className="flex items-center gap-2">
+          <div key={label} className="flex items-center gap-1 sm:gap-2">
             <button
               onClick={() => i < step && goToStep(i)}
               className={cn(
-                'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold transition-colors',
+                'flex h-7 w-7 sm:h-8 sm:w-8 shrink-0 items-center justify-center rounded-full border text-[10px] sm:text-xs font-bold transition-colors',
                 i < step && 'border-ink bg-ink text-white',
                 i === step && 'border-ink text-ink',
                 i > step && 'border-border text-ink/35'
               )}
             >
-              {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
+              {i < step ? <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> : i + 1}
             </button>
-            <span className={cn('whitespace-nowrap text-sm font-semibold', i === step ? 'text-ink' : 'text-ink/40')}>
+            <span className={cn('whitespace-nowrap text-[10px] sm:text-sm font-semibold', i === step ? 'text-ink' : 'text-ink/40')}>
               {label}
             </span>
-            {i < STEPS.length - 1 && <div className="mx-2 h-px w-8 bg-border sm:w-16" />}
+            {i < STEPS.length - 1 && <div className="mx-1 sm:mx-2 h-px w-4 sm:w-8 bg-border" />}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_360px]">
+      <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:gap-12 lg:grid-cols-[1fr_360px]">
         <div>
           {step === 0 && (
-            <div className="flex flex-col gap-5">
-              <h2 className="font-display text-xl font-bold">Shipping Information</h2>
+            <div className="flex flex-col gap-4 sm:gap-5">
+              <h2 className="font-display text-lg sm:text-xl font-bold">Shipping Information</h2>
 
               {addresses.length > 0 && (
                 <div className="flex flex-col gap-3">

@@ -83,21 +83,21 @@ export function ShopPage() {
   const activeCategory = categories.find((c) => c.id === categoryId);
 
   return (
-    <div className="container-px mx-auto py-8">
+    <div className="container-px mx-auto py-6 sm:py-8">
       <Breadcrumbs items={[{ label: 'Shop', to: '/shop' }, ...(activeCategory ? [{ label: activeCategory.name }] : [])]} />
 
-      <div className="mt-4 mb-8 flex items-end justify-between">
-        <h1 className="font-display text-3xl font-bold text-ink sm:text-4xl">
+      <div className="mt-3 sm:mt-4 mb-6 sm:mb-8 flex flex-col items-start justify-between gap-2 sm:gap-4">
+        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-ink">
           {activeCategory?.name || (saleOnly ? 'Sale' : 'All Products')}
         </h1>
-        {meta && <span className="text-sm text-ink/45">{meta.total} items</span>}
+        {meta && <span className="text-xs sm:text-sm text-ink/45">{meta.total} items</span>}
       </div>
 
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-4 sm:mb-6 flex items-center justify-between gap-2 sm:gap-3">
         <Button
           variant="default"
           size="sm"
-          className="lg:hidden"
+          className="lg:hidden h-8 sm:h-9 text-xs sm:text-sm"
           onClick={() => setIsFilterOpen(true)}
         >
           <SlidersHorizontal className="h-4 w-4" /> Filters

@@ -33,7 +33,7 @@ export function Header() {
     <header className="sticky top-0 z-40 bg-white">
       <AnnouncementBar />
       <div className="border-b border-border">
-        <div className="container-px mx-auto flex h-[72px] items-center justify-between gap-4">
+        <div className="container-px mx-auto flex h-16 sm:h-[60px] md:h-[72px] items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-4">
             <button
               className="p-1 lg:hidden"
@@ -45,31 +45,31 @@ export function Header() {
             <Logo />
           </div>
 
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-6 xl:gap-8 lg:flex">
             {NAV_LINKS.map((link) => (
-              <Link key={link.label} to={link.to} className="nav-link">
+              <Link key={link.label} to={link.to} className="nav-link text-xs sm:text-sm">
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
             <button
-              className="rounded-full p-2.5 transition-colors hover:bg-surface-muted"
+              className="rounded-full p-1.5 sm:p-2 md:p-2.5 transition-colors hover:bg-surface-muted"
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
             >
-              {searchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
+              {searchOpen ? <X className="h-4 w-4 sm:h-5 sm:w-5" /> : <Search className="h-4 w-4 sm:h-5 sm:w-5" />}
             </button>
 
             <Link
               to="/wishlist"
-              className="relative hidden rounded-full p-2.5 transition-colors hover:bg-surface-muted sm:inline-flex"
+              className="relative hidden rounded-full p-1.5 sm:p-2 md:p-2.5 transition-colors hover:bg-surface-muted sm:inline-flex"
               aria-label="Wishlist"
             >
-              <Heart className="h-5 w-5" />
+              <Heart className="h-4 w-4 sm:h-5 sm:w-5" />
               {wishlistCount > 0 && (
-                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-bold text-white">
+                <span className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-accent text-[7px] sm:text-[9px] font-bold text-white">
                   {wishlistCount}
                 </span>
               )}
@@ -83,21 +83,21 @@ export function Header() {
             <SignedOut>
               <Link
                 to="/sign-in"
-                className="hidden rounded-full p-2.5 transition-colors hover:bg-surface-muted sm:inline-flex"
+                className="hidden rounded-full p-1.5 sm:p-2 md:p-2.5 transition-colors hover:bg-surface-muted sm:inline-flex"
                 aria-label="Sign in"
               >
-                <User className="h-5 w-5" />
+                <User className="h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
             </SignedOut>
 
             <button
-              className="relative rounded-full p-2.5 transition-colors hover:bg-surface-muted"
+              className="relative rounded-full p-1.5 sm:p-2 md:p-2.5 transition-colors hover:bg-surface-muted"
               onClick={openCart}
               aria-label="Open bag"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
               {itemCount > 0 && (
-                <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-bold text-white">
+                <span className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-accent text-[7px] sm:text-[9px] font-bold text-white">
                   {itemCount}
                 </span>
               )}
@@ -108,20 +108,20 @@ export function Header() {
         <div
           className={cn(
             'overflow-hidden border-t border-border transition-all duration-300 ease-premium',
-            searchOpen ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0 border-t-0'
+            searchOpen ? 'max-h-24 opacity-100' : 'max-h-0 opacity-0 border-t-0'
           )}
         >
-          <form onSubmit={submitSearch} className="container-px mx-auto flex items-center gap-3 py-3">
-            <Search className="h-4 w-4 shrink-0 text-ink/40" />
+          <form onSubmit={submitSearch} className="container-px mx-auto flex items-center gap-2 sm:gap-3 py-2 sm:py-3">
+            <Search className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-ink/40" />
             <input
               autoFocus={searchOpen}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               type="text"
-              placeholder="Search for products, brands, categories…"
-              className="w-full bg-transparent text-sm text-ink placeholder:text-ink/35 focus:outline-none"
+              placeholder="Search products…"
+              className="w-full bg-transparent text-xs sm:text-sm text-ink placeholder:text-ink/35 focus:outline-none"
             />
-            <Button type="submit" size="sm" variant="ghost">
+            <Button type="submit" size="sm" variant="ghost" className="text-xs sm:text-sm">
               Search
             </Button>
           </form>
