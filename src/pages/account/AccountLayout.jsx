@@ -9,7 +9,7 @@ export function AccountLayout() {
       <h1 className="mt-4 mb-8 font-display text-3xl font-bold sm:text-4xl">My Account</h1>
       <div className="flex flex-col gap-10 lg:flex-row">
         <AccountSidebar />
-        <div className="flex-1">
+        <div className="min-w-0 flex-1">
           <Outlet />
         </div>
       </div>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Check, Package } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { fetchOrderById } from '@/services/orders';
 import { ORDER_STATUS_STEPS } from '@/lib/constants';
@@ -45,9 +44,6 @@ export function AccountOrderDetailPage() {
           <h2 className="font-display text-xl font-bold">Order #{order.id.slice(-8).toUpperCase()}</h2>
           <p className="text-sm text-ink/50">Placed on {formatDate(order.createdAt)}</p>
         </div>
-        <Button variant="default" size="sm" asChild>
-          <Link to={`/track-order?orderId=${order.id}`}>Track Order</Link>
-        </Button>
       </div>
 
       <div className="rounded-md border border-border p-4 sm:p-6">

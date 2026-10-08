@@ -63,9 +63,9 @@ export function AccountAddressesPage() {
             <Card key={address.id}>
               <CardContent className="flex flex-col gap-3 p-5">
                 <div className="flex items-start justify-between">
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-sm font-semibold text-ink">{address.fullName}</p>
-                    <p className="mt-1 text-sm text-ink/60">{formatAddressLine(address)}</p>
+                    <p className="mt-1 break-words text-sm text-ink/60">{formatAddressLine(address)}</p>
                     <p className="mt-1 text-sm text-ink/60">{address.phone}</p>
                   </div>
                   <div className="flex gap-1">
@@ -95,7 +95,7 @@ export function AccountAddressesPage() {
       )}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="max-w-lg p-8">
+        <DialogContent className="max-w-lg p-5 sm:p-8">
           <DialogTitle className="mb-6">{editingId ? 'Edit Address' : 'Add New Address'}</DialogTitle>
           <form onSubmit={handleSave} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <FloatingField id="addr-fullName" label="Full name" value={form.fullName} onChange={handleField('fullName')} />
