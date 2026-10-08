@@ -15,6 +15,11 @@ export async function fetchOrderById(id) {
   return data.data;
 }
 
+export async function fetchOrderTracking(id) {
+  const { data } = await api.get(`/orders/track/${id}`);
+  return data.data;
+}
+
 export async function fetchCurrentUser() {
   const { data } = await api.get('/auth/me');
   return data.data;

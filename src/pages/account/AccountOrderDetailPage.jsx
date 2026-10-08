@@ -50,7 +50,7 @@ export function AccountOrderDetailPage() {
         </Button>
       </div>
 
-      <div className="rounded-md border border-border p-6">
+      <div className="rounded-md border border-border p-4 sm:p-6">
         {isCancelled ? (
           <div className="rounded-sm bg-accent/10 p-4 text-center text-sm font-semibold text-accent">
             This order was cancelled.
@@ -58,7 +58,7 @@ export function AccountOrderDetailPage() {
         ) : (
           <div className="flex items-center justify-between">
             {ORDER_STATUS_STEPS.map((stepStatus, i) => (
-              <div key={stepStatus} className="flex flex-1 flex-col items-center">
+              <div key={stepStatus} className="flex min-w-0 flex-1 flex-col items-center">
                 <div className="flex w-full items-center">
                   <div
                     className={cn(
@@ -72,7 +72,7 @@ export function AccountOrderDetailPage() {
                     <div className={cn('h-0.5 flex-1', i < currentStepIndex ? 'bg-ink' : 'bg-border')} />
                   )}
                 </div>
-                <span className={cn('mt-2 text-center text-[11px] font-semibold', i <= currentStepIndex ? 'text-ink' : 'text-ink/35')}>
+                <span className={cn('mt-2 break-all text-center text-[9px] font-semibold leading-tight sm:break-normal sm:text-[11px]', i <= currentStepIndex ? 'text-ink' : 'text-ink/35')}>
                   {stepStatus}
                 </span>
               </div>

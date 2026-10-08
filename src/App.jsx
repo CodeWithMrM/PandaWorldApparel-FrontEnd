@@ -85,14 +85,7 @@ export default function App() {
           />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/search" element={<SearchResultsPage />} />
-          <Route
-            path="/track-order"
-            element={
-              <ProtectedRoute>
-                <OrderTrackingPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/track-order" element={<OrderTrackingPage />} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/sign-in/*" element={<SignInPage />} />
           <Route path="/sign-up/*" element={<SignUpPage />} />

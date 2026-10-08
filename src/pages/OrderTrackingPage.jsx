@@ -1,35 +1,47 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Check, Package, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { EmptyState } from '@/components/common/EmptyState';
 import { Breadcrumbs, LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { fetchOrderById } from '@/services/orders';
+import { fetchOrderTracking } from '@/services/orders';
 import { ORDER_STATUS_STEPS } from '@/lib/constants';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 
 export function OrderTrackingPage() {
   const [searchParams] = useSearchParams();
-  const [orderId, setOrderId] = useState(searchParams.get('orderId') || '');
+  const requestedOrderId = searchParams.get('orderId')?.trim() || '';
+  const [orderId, setOrderId] = useState(requestedOrderId);
   const [order, setOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleTrack = async (e) => {
-    e.preventDefault();
-    if (!orderId.trim()) return;
+  const trackOrder = useCallback(async (id) => {
     setIsLoading(true);
     setError(null);
     setOrder(null);
     try {
-      const data = await fetchOrderById(orderId.trim());
+      const data = await fetchOrderTracking(id);
       setOrder(data);
     } catch (err) {
       setError(err.message || 'We could not find that order');
     } finally {
       setIsLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    if (!requestedOrderId) return;
+    setOrderId(requestedOrderId);
+    trackOrder(requestedOrderId);
+  }, [requestedOrderId, trackOrder]);
+
+  const handleTrack = (e) => {
+    e.preventDefault();
+    const id = orderId.trim();
+    if (!id) return;
+    trackOrder(id);
   };
 
   const isCancelled = order?.status === 'CANCELLED';
@@ -43,9 +55,15 @@ export function OrderTrackingPage() {
         Enter your order ID (from your confirmation email or Order History) to see its current status.
       </p>
 
-      <form onSubmit={handleTrack} className="mb-10 flex max-w-lg gap-3">
-        <Input value={orderId} onChange={(e) => setOrderId(e.target.value)} placeholder="e.g. cljk3f9h20001abcd" />
-        <Button type="submit" variant="solid" disabled={isLoading}>
+      <form onSubmit={handleTrack} className="mb-10 flex w-full max-w-lg flex-col gap-3 sm:flex-row">
+        <Input
+          value={orderId}
+          onChange={(e) => setOrderId(e.target.value)}
+          placeholder="e.g. cljk3f9h20001abcd"
+          required
+          className="min-w-0"
+        />
+        <Button type="submit" variant="solid" disabled={isLoading} className="w-full sm:w-auto">
           {isLoading ? <LoadingSpinner className="h-4 w-4 border-white/30 border-t-white" /> : 'Track'}
         </Button>
       </form>
@@ -64,13 +82,13 @@ export function OrderTrackingPage() {
       )}
 
       {order && (
-        <div className="max-w-2xl rounded-md border border-border p-6">
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-2 border-b border-border pb-6">
-            <div>
+        <div className="w-full max-w-2xl rounded-md border border-border p-4 sm:p-6">
+          <div className="mb-6 grid grid-cols-2 gap-4 border-b border-border pb-6 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+            <div className="col-span-2 min-w-0 sm:col-span-1">
               <p className="text-xs font-semibold uppercase tracking-wide text-ink/45">Order ID</p>
-              <p className="font-mono text-sm text-ink">{order.id}</p>
+              <p className="break-all font-mono text-sm text-ink">{order.id}</p>
             </div>
-            <div className="text-right">
+            <div className="text-left sm:text-right">
               <p className="text-xs font-semibold uppercase tracking-wide text-ink/45">Placed On</p>
               <p className="text-sm text-ink">{formatDate(order.createdAt)}</p>
             </div>
@@ -87,7 +105,7 @@ export function OrderTrackingPage() {
           ) : (
             <div className="flex items-center justify-between">
               {ORDER_STATUS_STEPS.map((stepStatus, i) => (
-                <div key={stepStatus} className="flex flex-1 flex-col items-center">
+                <div key={stepStatus} className="flex min-w-0 flex-1 flex-col items-center">
                   <div className="flex w-full items-center">
                     <div
                       className={cn(
@@ -101,7 +119,7 @@ export function OrderTrackingPage() {
                       <div className={cn('h-0.5 flex-1', i < currentStepIndex ? 'bg-ink' : 'bg-border')} />
                     )}
                   </div>
-                  <span className={cn('mt-2 text-center text-[11px] font-semibold', i <= currentStepIndex ? 'text-ink' : 'text-ink/35')}>
+                  <span className={cn('mt-2 text-center text-[9px] font-semibold leading-tight sm:text-[11px]', i <= currentStepIndex ? 'text-ink' : 'text-ink/35')}>
                     {stepStatus}
                   </span>
                 </div>

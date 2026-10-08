@@ -44,7 +44,6 @@ Label.displayName = 'Label';
  */
 const FloatingField = React.forwardRef(
   ({ label, id, className, error, helperText, ...props }, ref) => {
-    const [hasValue, setHasValue] = React.useState(Boolean(props.value || props.defaultValue));
     return (
       <div className={cn('relative', className)}>
         <input
@@ -55,18 +54,14 @@ const FloatingField = React.forwardRef(
             error ? 'border-accent focus-visible:ring-accent' : 'border-border focus:border-ink'
           )}
           placeholder={label}
-          onChange={(e) => {
-            setHasValue(Boolean(e.target.value));
-            props.onChange?.(e);
-          }}
           {...props}
         />
         <label
           htmlFor={id}
           className={cn(
-            'pointer-events-none absolute left-4 top-4 text-[15px] text-ink/40 transition-all duration-200 ease-premium',
+            'pointer-events-none absolute left-4 top-2 text-[11px] text-ink/60 transition-all duration-200 ease-premium',
+            'peer-placeholder-shown:top-4 peer-placeholder-shown:text-[15px] peer-placeholder-shown:text-ink/40',
             'peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-ink/60',
-            hasValue && 'top-2 text-[11px] text-ink/60'
           )}
         >
           {label}
