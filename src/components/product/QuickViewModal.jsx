@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { PriceTag } from './PriceTag';
@@ -17,15 +18,24 @@ export function QuickViewModal() {
   const [size, setSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
+  useEffect(() => {
+    setSize(null);
+    setQuantity(1);
+  }, [product?.id]);
+
   if (!product) return null;
 
   const { compareAtPrice, onSale, percentOff } = getDerivedPricing(product);
-  const { rating, reviewCount } = getDerivedRating(product);
+  const { rating, reviewCount } = getDerivedRating();
   const sizes = getDerivedSizes(product);
   const isSoldOut = product.stock <= 0;
 
   const handleAdd = async () => {
-    await addItem(product, quantity);
+    if (!size) {
+      toast.error('Please select a size');
+      return;
+    }
+    await addItem(product, quantity, size);
     closeQuickView();
   };
 

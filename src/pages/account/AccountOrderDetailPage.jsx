@@ -89,7 +89,9 @@ export function AccountOrderDetailPage() {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-ink">{item.product?.name}</p>
-                <p className="text-xs text-ink/45">Qty {item.quantity}</p>
+                <p className="text-xs text-ink/45">
+                  {item.size && `Size ${item.size} · `}Qty {item.quantity}
+                </p>
               </div>
               <span className="text-sm font-bold text-ink">{formatCurrency(item.price * item.quantity)}</span>
             </li>

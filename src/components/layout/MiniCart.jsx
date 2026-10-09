@@ -52,6 +52,7 @@ export function MiniCart() {
                           <X className="h-4 w-4" />
                         </button>
                       </div>
+                      {item.size && <p className="text-xs text-ink/50">Size: {item.size}</p>}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center rounded-full border border-border">
                           <button

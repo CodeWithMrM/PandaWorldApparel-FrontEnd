@@ -24,7 +24,7 @@ export function AccountAddressesPage() {
 
   const openEdit = (address) => {
     setEditingId(address.id);
-    setForm(address);
+    setForm({ ...emptyForm, ...address });
     setIsOpen(true);
   };
 
@@ -32,15 +32,26 @@ export function AccountAddressesPage() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!form.fullName || !form.line1 || !form.city || !form.postalCode) {
+    const address = Object.fromEntries(
+      Object.entries(form).map(([field, value]) => [field, value.trim()])
+    );
+    if (
+      !address.fullName ||
+      !address.line1 ||
+      !address.city ||
+      !address.province ||
+      !address.postalCode ||
+      !address.country ||
+      !address.phone
+    ) {
       toast.error('Please fill in all required fields');
       return;
     }
     if (editingId) {
-      updateAddress(editingId, form);
+      updateAddress(editingId, address);
       toast.success('Address updated');
     } else {
-      addAddress(form);
+      addAddress(address);
       toast.success('Address saved');
     }
     setIsOpen(false);

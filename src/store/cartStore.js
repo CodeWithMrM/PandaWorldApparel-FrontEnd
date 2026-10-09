@@ -21,11 +21,11 @@ export const useCartStore = create((set, get) => ({
     }
   },
 
-  async addItem(product, quantity = 1) {
+  async addItem(product, quantity = 1, size) {
     try {
-      const cart = await cartService.addCartItem(product.id, quantity);
+      const cart = await cartService.addCartItem(product.id, quantity, size);
       set({ cart, isOpen: true });
-      toast.success(`Added "${product.name}" to your bag`);
+      toast.success(`Added "${product.name}" (${size}) to your bag`);
     } catch (err) {
       toast.error(err.message || 'Could not add item to your bag');
       throw err;

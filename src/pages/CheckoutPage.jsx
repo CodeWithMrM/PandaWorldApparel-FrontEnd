@@ -253,7 +253,10 @@ export function CheckoutPage() {
                 {items.map((item) => (
                   <li key={item.id} className="flex items-center justify-between p-4 text-sm">
                     <span className="text-ink/70">
-                      {item.product.name} <span className="text-ink/40">× {item.quantity}</span>
+                      {item.product.name}{' '}
+                      <span className="text-ink/40">
+                        {item.size && `· ${item.size} · `}× {item.quantity}
+                      </span>
                     </span>
                     <span className="font-semibold text-ink">{formatCurrency(item.product.price * item.quantity)}</span>
                   </li>
@@ -285,7 +288,9 @@ export function CheckoutPage() {
                     {item.quantity}
                   </span>
                 </div>
-                <span className="flex-1 text-ink/70 line-clamp-1">{item.product.name}</span>
+                <span className="flex-1 text-ink/70 line-clamp-1">
+                  {item.product.name}{item.size && ` · ${item.size}`}
+                </span>
                 <span className="font-semibold text-ink">{formatCurrency(item.product.price * item.quantity)}</span>
               </li>
             ))}

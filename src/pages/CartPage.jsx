@@ -87,6 +87,7 @@ export function CartPage() {
                       <Link to={`/product/${item.product.id}`} className="text-xs sm:text-sm font-semibold text-ink hover:underline">
                         {item.product.name}
                       </Link>
+                      {item.size && <p className="mt-1 text-xs text-ink/50">Size: {item.size}</p>}
                       <p className="mt-1 text-xs sm:text-sm font-bold text-ink sm:hidden">
                         {formatCurrency(item.product.price)}
                       </p>

@@ -4,7 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { PriceTag } from './PriceTag';
 import { RatingStars } from './RatingStars';
 import { useWishlistStore } from '@/store/wishlistStore';
-import { useCartStore } from '@/store/cartStore';
 import { useUIStore } from '@/store/uiStore';
 import { getDerivedPricing, getDerivedRating, getStockStatus } from '@/lib/productPresentation';
 import { cn } from '@/lib/utils';
@@ -12,11 +11,10 @@ import { cn } from '@/lib/utils';
 export function ProductCard({ product, className }) {
   const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
   const toggleWishlist = useWishlistStore((s) => s.toggle);
-  const addItem = useCartStore((s) => s.addItem);
   const openQuickView = useUIStore((s) => s.openQuickView);
 
   const { onSale, compareAtPrice, percentOff } = getDerivedPricing(product);
-  const { rating, reviewCount } = getDerivedRating(product);
+  const { rating, reviewCount } = getDerivedRating();
   const stock = getStockStatus(product);
   const isSoldOut = product.stock <= 0;
 
@@ -54,7 +52,7 @@ export function ProductCard({ product, className }) {
 
         <div className="absolute inset-x-3 bottom-3 flex translate-y-2 gap-2 opacity-0 transition-all duration-300 ease-premium group-hover:translate-y-0 group-hover:opacity-100">
           <button
-            onClick={() => !isSoldOut && addItem(product, 1)}
+            onClick={() => !isSoldOut && openQuickView(product)}
             disabled={isSoldOut}
             className="flex-1 rounded-sm border border-ink bg-white/95 py-2.5 text-xs font-bold uppercase tracking-wide text-ink transition-colors hover:bg-ink hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
           >

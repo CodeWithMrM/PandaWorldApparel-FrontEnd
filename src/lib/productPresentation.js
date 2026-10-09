@@ -1,24 +1,3 @@
-/**
- * The backend's Product model (see prisma/schema.prisma in the API repo)
- * only has: id, name, description, price, stock, imageUrl, categoryId.
- * There's no reviews/rating, compareAtPrice/discount, or size-variant data
- * yet. Real fashion PLPs/PDPs need all three, so — until the schema is
- * extended — these helpers derive presentable, *deterministic* (same
- * product always looks the same) placeholder values from the product id.
- *
- * Swap these out once the backend grows a Review model, a
- * `compareAtPrice` column, and a ProductVariant model for sizes/colors.
- */
-
-function hashString(str = '') {
-  let hash = 0;
-  for (let i = 0; i < str.length; i += 1) {
-    hash = (hash << 5) - hash + str.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
 export const STANDARD_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
 /** Deterministic 1-in-3ish "on sale" flag + a plausible strikethrough price. */
@@ -32,21 +11,27 @@ export function getDerivedPricing(product) {
   return { onSale: true, compareAtPrice, percentOff };
 }
 
-/** Deterministic rating between 3.6 and 5.0, and a plausible review count. */
-export function getDerivedRating(product) {
-  const hash = hashString(product?.id);
-  const rating = Math.round((3.6 + (hash % 15) / 10) * 10) / 10;
-  const reviewCount = 8 + (hash % 240);
-  return { rating: Math.min(rating, 5), reviewCount };
+/** Reviews are empty until customers can submit persisted reviews. */
+export function getDerivedRating() {
+  return { rating: 0, reviewCount: 0 };
 }
 
-/** Deterministic subset of standard sizes marked available for a product. */
+/** Every size is offered whenever the product has stock. */
 export function getDerivedSizes(product) {
-  const hash = hashString(product?.id);
-  return STANDARD_SIZES.map((size, i) => ({
+  const available = product?.stock > 0;
+  return STANDARD_SIZES.map((size) => ({
     size,
-    available: (hash >> i) % 5 !== 0, // most sizes in stock, occasional gaps
+    available,
   }));
+}
+
+function hashString(str = '') {
+  let hash = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
 }
 
 export function getStockStatus(product) {

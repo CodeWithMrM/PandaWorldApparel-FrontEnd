@@ -24,31 +24,6 @@ import {
 } from '@/lib/productPresentation';
 import { cn } from '@/lib/utils';
 
-function generateMockReviews(product) {
-  const names = ['Naledi M.', 'Sipho K.', 'Amara D.', 'Liam P.', 'Zanele T.'];
-  const comments = [
-    'Fit is spot on and the fabric feels way better than I expected for the price.',
-    'Shipping was fast and it looked exactly like the photos. Ordering another color.',
-    'True to size. Would recommend sizing down if you like a slimmer fit.',
-    'Good quality, though I wish there were more colour options.',
-    'Been on repeat in my wardrobe since it arrived. Great everyday piece.',
-  ];
-  const { rating, reviewCount } = getDerivedRating(product);
-  return {
-    rating,
-    reviewCount,
-    reviews: names.map((name, i) => ({
-      name,
-      rating: Math.max(3, Math.round(rating) - (i % 2)),
-      comment: comments[i],
-      date: new Date(Date.now() - i * 6 * 24 * 3600 * 1000).toLocaleDateString('en-ZA', {
-        month: 'short',
-        year: 'numeric',
-      }),
-    })),
-  };
-}
-
 export function ProductDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -100,7 +75,7 @@ export function ProductDetailsPage() {
   const sizes = getDerivedSizes(product);
   const stock = getStockStatus(product);
   const isSoldOut = product.stock <= 0;
-  const { rating, reviewCount, reviews } = generateMockReviews(product);
+  const { rating, reviewCount } = getDerivedRating();
 
   const requiresSizeChoice = sizes.length > 0;
   const canAddToCart = !isSoldOut && (!requiresSizeChoice || size);
@@ -110,7 +85,7 @@ export function ProductDetailsPage() {
       toast.error('Please select a size');
       return;
     }
-    await addItem(product, quantity);
+    await addItem(product, quantity, size);
   };
 
   const handleBuyNow = async () => {
@@ -118,7 +93,7 @@ export function ProductDetailsPage() {
       toast.error('Please select a size');
       return;
     }
-    await addItem(product, quantity);
+    await addItem(product, quantity, size);
     navigate('/checkout');
   };
 
@@ -228,18 +203,7 @@ export function ProductDetailsPage() {
             </TabsContent>
 
             <TabsContent value="reviews">
-              <div className="flex flex-col gap-6">
-                {reviews.map((review, i) => (
-                  <div key={i} className="border-b border-border pb-6 last:border-0">
-                    <div className="mb-1 flex items-center justify-between">
-                      <span className="text-sm font-semibold text-ink">{review.name}</span>
-                      <span className="text-xs text-ink/40">{review.date}</span>
-                    </div>
-                    <RatingStars rating={review.rating} />
-                    <p className="mt-2 text-sm leading-relaxed text-ink/65">{review.comment}</p>
-                  </div>
-                ))}
-              </div>
+              <p className="text-sm text-ink/55">No reviews yet. Be the first to review this product.</p>
             </TabsContent>
 
             <TabsContent value="shipping">
