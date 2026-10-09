@@ -59,9 +59,9 @@ export function AccountAddressesPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col items-center gap-3 text-center">
         <h2 className="font-display text-xl font-bold">Saved Addresses</h2>
-        <Button variant="default" size="sm" onClick={openNew}>
+        <Button variant="default" size="sm" className="shrink-0 self-center" onClick={openNew}>
           <Plus className="h-4 w-4" /> Add Address
         </Button>
       </div>
