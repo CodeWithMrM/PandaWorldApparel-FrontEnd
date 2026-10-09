@@ -54,8 +54,8 @@ export default {
           to: { transform: 'translateX(0)' },
         },
         'scale-in': {
-          from: { opacity: 0, transform: 'scale(0.96)' },
-          to: { opacity: 1, transform: 'scale(1)' },
+          from: { opacity: 0, scale: '0.96' },
+          to: { opacity: 1, scale: '1' },
         },
         marquee: {
           from: { transform: 'translateX(0)' },
